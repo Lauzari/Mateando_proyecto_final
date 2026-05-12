@@ -10,10 +10,6 @@ jobs:
     timeout-minutes: 20
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: Mateando
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
