@@ -12,7 +12,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: Mateando-TUP
+        working-directory: Mateando
 
     steps:
       - name: Checkout repository
