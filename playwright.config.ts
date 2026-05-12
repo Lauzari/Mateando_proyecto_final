@@ -6,7 +6,7 @@ export default defineConfig({
   use: {
     baseURL: 'https://mateando-tup.onrender.com',
 
-    headless: false,
+    headless: true,
 
     screenshot: 'only-on-failure',
 
