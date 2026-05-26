@@ -1,5 +1,32 @@
 import { test, expect } from '@playwright/test'
 
+import { LoginPage } from '../pages/LoginPage'
+
+test('usuario puede iniciar sesión', async ({ page }) => {
+
+  test.setTimeout(120000)
+
+  const loginPage = new LoginPage(page)
+
+  await loginPage.goto()
+
+  await loginPage.login(
+    'laumoy@gmail.com',
+    '1234'
+  )
+
+  await expect(
+    page.getByRole('link', {
+      name: 'Productos'
+    })
+  ).toBeVisible({
+    timeout: 30000
+  })
+})
+
+
+
+/*
 test('usuario puede iniciar sesión', async ({ page }) => {
 
   test.setTimeout(120000)
@@ -27,4 +54,4 @@ test('usuario puede iniciar sesión', async ({ page }) => {
     timeout: 30000
   })
 
-})
+}) */

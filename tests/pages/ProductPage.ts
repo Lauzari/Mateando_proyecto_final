@@ -1,13 +1,22 @@
 import { Page } from '@playwright/test'
+import { BasePage } from './BasePage'
 
-export class ProductPage {
-  constructor(private page: Page) {}
-
-  async selectSize(size: string) {
-    await this.page.click(`text=${size}`)
+export class ProductPage extends BasePage {
+  constructor( page: Page) {
+    super(page)
+    this.selectProduct = this.selectProduct.bind(this)
+    this.addToCart = this.addToCart.bind(this)
+    
   }
 
-  async addToCart() {
-    await this.page.click('text=Agregar al carrito')
+  async selectProduct(product: string) {
+    await this.page.click(`text=${product}`)
+  }
+
+  async addToCart(index = 0) {
+
+    await this.page.getByRole('button', {
+      name: 'Agregar al carrito'
+    }).nth(index).click()
   }
 }
