@@ -1,10 +1,44 @@
 import { test, expect } from '@playwright/test'
+import { LoginPage } from '../pages/LoginPage'
+
+import { ProductPage } from '../pages/ProductPage'
+
+import { HomePage } from '../pages/HomePage'
+
+import { CartPage } from '../pages/CartPage'
+import { createUserAndLogin } from '../utils/createUserAndLogin'
 
 test('usuario puede comprar productos', async ({ page }) => {
 
   test.setTimeout(120000)
 
-  await page.goto('https://mateando-tup.onrender.com', {
+   //const loginPage = new LoginPage(page)
+
+  const productPage = new ProductPage(page)
+
+  const homePage = new HomePage(page)
+
+  const cartPage = new CartPage(page)
+
+  // CREA USUARIO Y LOGUEA
+    await createUserAndLogin(page)
+  //await loginPage.goto()
+
+   // AGREGA PRODUCTO
+
+  await productPage.addToCart(1)
+
+
+// ABRE CARRITO
+  await homePage.openCart()
+
+
+  // COMPRA
+  await cartPage.buy()
+})
+
+
+  /*await page.goto('https://mateando-tup.onrender.com', {
     waitUntil: 'domcontentloaded'
   })
 
@@ -46,4 +80,4 @@ test('usuario puede comprar productos', async ({ page }) => {
 
   await buyButton.click()
 
-})
+})*/

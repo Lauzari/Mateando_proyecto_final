@@ -1,10 +1,40 @@
 import { test, expect } from '@playwright/test'
 
+import { RegisterPage } from '../pages/RegisterPage'
+
+import { testUser } from '../utils/testData'
+
+import { generateEmail } from '../utils/generateEmail'
+
+
+
 test('usuario puede registrarse', async ({ page }) => {
 
   test.setTimeout(120000)
 
-  const email = `test${Date.now()}@gmail.com`
+ const registerPage = new RegisterPage(page)
+
+  const email = generateEmail()
+
+  await registerPage.goto()
+
+  await registerPage.registerUser({
+
+    ...testUser,
+
+    email
+  })
+
+  await expect(
+    page.getByRole('link', {
+      name: 'Productos'
+    })
+  ).toBeVisible({
+    timeout: 30000
+  })
+
+
+/*  const email = `test${Date.now()}@gmail.com`
 
   await page.goto('https://mateando-tup.onrender.com', {
     waitUntil: 'domcontentloaded'
@@ -50,6 +80,6 @@ await expect(
   page.getByRole('link', { name: 'Productos' })
 ).toBeVisible({
   timeout: 30000
-})
+})*/
 
 })
