@@ -8,12 +8,12 @@ export default defineConfig({
 
     headless: true,
 
-    screenshot: 'only-on-failure',
+   /* screenshot: 'only-on-failure',
 
     video: 'retain-on-failure',
 
-    trace: 'on-first-retry',
+    trace: 'on-first-retry',*/
   },
 
-  reporter: [['html', { outputFolder: 'playwright-report' }]],
+  //reporter: [['html', { outputFolder: 'playwright-report' }]],
 })

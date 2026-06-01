@@ -1,7 +1,49 @@
-import { Page } from '@playwright/test'
+import { Page,Locator} from '@playwright/test'
 import { BasePage } from './BasePage' 
 
+export class LoginPage extends BasePage {
 
+  readonly emailInput: Locator
+
+  readonly passwordInput: Locator
+
+  readonly loginButton: Locator
+
+  constructor(page: Page) {
+
+    super(page)
+
+    this.emailInput = page.getByRole('textbox', {
+      name: 'Email:'
+    })
+
+    this.passwordInput = page.getByRole('textbox', {
+      name: 'Contraseña:'
+    })
+
+    this.loginButton = page.getByRole('button', {
+      name: 'Iniciar sesión'
+    })
+  }
+
+  async goto() {
+
+    await super.goto('/login')
+  }
+
+  async login(email: string, password: string) {
+
+    await this.emailInput.fill(email)
+
+    await this.passwordInput.fill(password)
+
+    await this.loginButton.click()
+  }
+}
+
+
+
+/*
 export class LoginPage extends BasePage {
   constructor( page: Page) {
       super(page)
@@ -20,7 +62,7 @@ export class LoginPage extends BasePage {
 
     await this.waitExtraTime()
   }
-
+*/
 
   /*
   async login(email: string, password: string) {
@@ -31,7 +73,7 @@ export class LoginPage extends BasePage {
   }
   */
 
-
+/*
   async login(email: string, password: string) {
 
     await this.page.getByRole('textbox', {
@@ -46,4 +88,4 @@ export class LoginPage extends BasePage {
       name: 'Iniciar sesión'
     }).click()
   }
-}
+}*/

@@ -1,8 +1,50 @@
-import { expect, Page } from '@playwright/test'
+import { expect, Page , Locator} from '@playwright/test'
 import { BasePage } from './BasePage'
 
 export class CartPage extends BasePage {
-  constructor( page: Page) {
+
+
+
+   readonly increaseButton: Locator
+
+  readonly removeButton: Locator
+
+  readonly buyButton: Locator
+
+  constructor(page: Page) {
+
+    super(page)
+
+    this.increaseButton = page.locator('text=+')
+
+    this.removeButton = page.locator('text=Eliminar')
+
+    this.buyButton = page.getByRole('button', {
+      name: 'Comprar'
+    })
+  }
+
+  async increaseQuantity() {
+
+    await this.increaseButton.click()
+  }
+
+  async removeProduct() {
+
+    await this.removeButton.click()
+  }
+
+  async buy() {
+
+    await expect(this.buyButton).toBeVisible({
+      timeout: 30000
+    })
+
+    await this.buyButton.click()
+  }
+}
+
+  /*constructor( page: Page) {
     super(page)
   }
 
@@ -26,4 +68,4 @@ export class CartPage extends BasePage {
 
     await buyButton.click()
   }
-}
+}*/

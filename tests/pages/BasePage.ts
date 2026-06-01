@@ -20,4 +20,27 @@ export class BasePage {
 
     await this.page.waitForTimeout(10000)
   }
+
+    async waitForPageLoad() {
+
+    await this.waitForRender()
+
+    await this.waitExtraTime()
+  }
+
+  // Navegación reutilizable
+
+  async goto(path: string) {
+
+    await this.page.goto(path, {
+      waitUntil: 'domcontentloaded'
+    })
+
+    await this.waitForPageLoad()
+  }
+
+  async getCurrentUrl() {
+
+    return this.page.url()
+  }
 }
